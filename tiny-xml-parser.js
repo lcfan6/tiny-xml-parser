@@ -183,7 +183,6 @@ const parse = tokens => {
     }
 
     if (token.token === '</') {
-      debugger
       if (status === 0 || status === 9) {
         status = 7
       } else {
