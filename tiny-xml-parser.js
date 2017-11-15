@@ -104,10 +104,7 @@ const parse = tokens => {
         parent: node
       }
       if (status === 9) {
-        if (!node.parent) {
-          throw new Error()
-        }
-        node.parent.children.push(_node)
+        node.children.push(_node)
       } else if (status === 0) {
         node.children.push(_node)
       } else {
@@ -124,7 +121,9 @@ const parse = tokens => {
         node.children.push({
           tagName: 'text',
           attrs: [],
-          children: []
+          children: [],
+          parent: node,
+          text: token.value
         })
       } else if (status === 1) {
         node.tagName = token.value
@@ -142,6 +141,8 @@ const parse = tokens => {
           throw new Error('status 7 name doesn\'t match')
         }
         status = 6
+      } else {
+        throw new Error('string')
       }
       i += 1
       continue
